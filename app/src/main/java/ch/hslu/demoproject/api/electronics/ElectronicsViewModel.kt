@@ -1,8 +1,8 @@
-package ch.hslu.demoproject.api
+package ch.hslu.demoproject.api.electronics
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ch.hslu.demoproject.api.data.Electronic
+import ch.hslu.demoproject.api.electronics.data.Electronic
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,7 +25,7 @@ class ElectronicsViewModel : ViewModel() {
     private val retrofit = Retrofit.Builder()
         .client(OkHttpClient().newBuilder().build())
         .addConverterFactory(Json.asConverterFactory(contentType))
-        .baseUrl("https://restful-api.dev/")
+        .baseUrl("https://api.restful-api.dev/")
         .build()
 
     private val electronicsService = retrofit.create(ElectronicsService::class.java)

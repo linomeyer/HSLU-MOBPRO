@@ -2,7 +2,9 @@ package ch.hslu.demoproject
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -21,7 +23,7 @@ class HomeScreen {
                 .fillMaxSize()
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceAround,
+            verticalArrangement = Arrangement.SpaceBetween,
         ) {
             Text(
                 modifier = Modifier.padding(16.dp),
@@ -29,13 +31,18 @@ class HomeScreen {
                 style = MaterialTheme.typography.headlineSmall,
                 color = MaterialTheme.colorScheme.primary,
             )
-            DetailScreenNavigation(navController)
+            Column {
+                ShowElectronicsScreen(navController)
+            }
+            Row {
+                DetailScreenNavigation(navController)
+            }
         }
     }
 
     @Composable
     private fun DetailScreenNavigation(navController: NavHostController) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Row {
             Button(
                 onClick = {
                     navController.navigate("${Screen.Detail.name}/HomeScreen/1")
@@ -43,12 +50,43 @@ class HomeScreen {
             ) {
                 Text("To Detail")
             }
-            Text(
-                modifier = Modifier.padding(8.dp),
-                text = "With the button above you can go to the Detail Screen.",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.primary,
-            )
         }
     }
+
+    @Composable
+    private fun ShowElectronicsScreen(navController: NavHostController) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = "Here you can view the API Data",
+                style = MaterialTheme.typography.labelLarge
+            )
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp)
+        ) {
+            Column(
+                modifier = Modifier.weight(1f),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                ElectronicsScreenNavigation(navController)
+            }
+        }
+    }
+
+    @Composable
+    private fun ElectronicsScreenNavigation(navController: NavHostController) {
+        Button(
+            onClick = {
+                navController.navigate(Screen.Electronics.name)
+            }
+        ) {
+            Text("Electronics")
+        }
+    }
+
 }

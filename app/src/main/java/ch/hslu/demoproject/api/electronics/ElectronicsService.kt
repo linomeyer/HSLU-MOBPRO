@@ -1,6 +1,6 @@
-package ch.hslu.demoproject.api
+package ch.hslu.demoproject.api.electronics
 
-import ch.hslu.demoproject.api.data.Electronic
+import ch.hslu.demoproject.api.electronics.data.Electronic
 import retrofit2.Response
 import retrofit2.http.GET
 

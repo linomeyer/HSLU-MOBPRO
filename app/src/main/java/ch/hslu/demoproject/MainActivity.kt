@@ -76,5 +76,11 @@ fun AppNavHost(navController: NavHostController, modifier: Modifier = Modifier) 
                 navController
             )
         }
+        composable(route = Screen.Electronics.name) {
+            ElectronicsScreen().Show(navController)
+        }
+        composable(route = Screen.Bands.name) {
+            BandsScreen().Show(navController)
+        }
     }
 }
