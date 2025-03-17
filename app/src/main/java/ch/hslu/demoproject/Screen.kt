@@ -1,4 +1,4 @@
-package com.example.demoproject
+package ch.hslu.demoproject
 
 enum class Screen {
     Home, Detail

@@ -1,4 +1,4 @@
-package com.example.demoproject
+package ch.hslu.demoproject
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,16 +26,16 @@ class DetailScreen {
             Column(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.SpaceBetween,
-                content = displayTexts()
+                content = texts()
             )
             Column(
                 Modifier.padding(top = 16.dp),
-                content = homeScreenNaviation(screenNr, fromScreen, navController)
+                content = homeScreenNavigation(screenNr, fromScreen, navController)
             )
         }
     }
 
-    private fun displayTexts(): @Composable (ColumnScope.() -> Unit) = {
+    private fun texts(): @Composable (ColumnScope.() -> Unit) = {
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             Text("Oben Anfang")
             Text("Oben Ende")
@@ -56,7 +56,7 @@ class DetailScreen {
         }
     }
 
-    private fun homeScreenNaviation(
+    private fun homeScreenNavigation(
         screenNr: Int,
         fromScreen: String,
         navController: NavHostController
@@ -66,7 +66,7 @@ class DetailScreen {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = "Detail Screen Nr. $screenNr | von $fromScreen",
+                text = "Detail Screen Nr. $screenNr | Von $fromScreen",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.tertiary,
             )

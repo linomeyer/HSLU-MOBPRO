@@ -1,4 +1,4 @@
-package com.example.demoproject.ui.theme
+package ch.hslu.demoproject.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

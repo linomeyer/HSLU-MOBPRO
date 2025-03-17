@@ -1,4 +1,4 @@
-package com.example.demoproject
+package ch.hslu.demoproject
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,8 +22,7 @@ class HomeScreen {
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceAround,
-
-            ) {
+        ) {
             Text(
                 modifier = Modifier.padding(16.dp),
                 text = "Welcome to Home Screen!",
