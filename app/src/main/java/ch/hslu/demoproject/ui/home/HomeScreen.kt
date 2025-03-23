@@ -1,4 +1,4 @@
-package ch.hslu.demoproject
+package ch.hslu.demoproject.ui.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import ch.hslu.demoproject.Screen
 
 class HomeScreen {
     @Composable
@@ -34,6 +35,9 @@ class HomeScreen {
             Column {
                 ShowElectronicsScreen(navController)
             }
+            Column {
+                ShowUserScreen(navController)
+            }
             Row {
                 DetailScreenNavigation(navController)
             }
@@ -41,15 +45,46 @@ class HomeScreen {
     }
 
     @Composable
-    private fun DetailScreenNavigation(navController: NavHostController) {
-        Row {
-            Button(
-                onClick = {
-                    navController.navigate("${Screen.Detail.name}/HomeScreen/1")
-                }
-            ) {
-                Text("To Detail")
+    private fun ShowUserScreen(navController: NavHostController) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = "Here you can manage the users",
+                style = MaterialTheme.typography.labelLarge
+            )
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            UserScreenNavigation(navController)
+        }
+
+    }
+
+    @Composable
+    private fun UserScreenNavigation(navController: NavHostController) {
+        Button(
+            onClick = {
+                navController.navigate(Screen.User.name)
             }
+        ) {
+            Text("Users")
+        }
+    }
+
+    @Composable
+    private fun DetailScreenNavigation(navController: NavHostController) {
+        Button(
+            onClick = {
+                navController.navigate("${Screen.Detail.name}/HomeScreen/1")
+            }
+        ) {
+            Text("Detail")
         }
     }
 
@@ -67,14 +102,10 @@ class HomeScreen {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 8.dp)
+                .padding(vertical = 8.dp),
+            horizontalArrangement = Arrangement.Center
         ) {
-            Column(
-                modifier = Modifier.weight(1f),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                ElectronicsScreenNavigation(navController)
-            }
+            ElectronicsScreenNavigation(navController)
         }
     }
 

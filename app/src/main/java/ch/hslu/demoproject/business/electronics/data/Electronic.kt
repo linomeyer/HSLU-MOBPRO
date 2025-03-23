@@ -1,4 +1,4 @@
-package ch.hslu.demoproject.api.electronics.data
+package ch.hslu.demoproject.business.electronics.data
 
 import kotlinx.serialization.Serializable
 

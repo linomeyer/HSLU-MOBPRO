@@ -1,4 +1,4 @@
-package ch.hslu.demoproject
+package ch.hslu.demoproject.ui.detail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import ch.hslu.demoproject.Screen
 
 class DetailScreen {
     @Composable
