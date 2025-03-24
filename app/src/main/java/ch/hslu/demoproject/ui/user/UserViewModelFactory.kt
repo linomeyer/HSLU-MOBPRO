@@ -3,7 +3,7 @@ package ch.hslu.demoproject.ui.user
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import ch.hslu.demoproject.business.users.UserRepository
+import ch.hslu.demoproject.data.users.UserRepository
 
 class UserViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")

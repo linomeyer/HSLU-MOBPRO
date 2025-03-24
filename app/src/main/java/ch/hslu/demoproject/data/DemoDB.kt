@@ -1,15 +1,19 @@
-package ch.hslu.demoproject.business
+package ch.hslu.demoproject.data
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import ch.hslu.demoproject.business.users.UserDao
-import ch.hslu.demoproject.business.users.UserEntity
+import ch.hslu.demoproject.data.users.User
+import ch.hslu.demoproject.data.users.UserDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
 
-@Database(entities = [UserEntity::class], version = 1, exportSchema = false)
+@Database(
+    entities = [User::class],
+    version = 1,
+    exportSchema = true,
+)
 abstract class DemoDB : RoomDatabase() {
     abstract fun userDao(): UserDao
 

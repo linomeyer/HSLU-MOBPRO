@@ -1,4 +1,4 @@
-package ch.hslu.demoproject.business.users
+package ch.hslu.demoproject.data.users
 
 import android.content.Context
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -6,8 +6,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import ch.hslu.demoproject.business.DemoDB
-import ch.hslu.demoproject.business.users.data.User
+import ch.hslu.demoproject.data.DemoDB
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import ch.hslu.demoproject.Screen
-import ch.hslu.demoproject.business.users.data.User
+import ch.hslu.demoproject.data.users.User
 
 class UserScreen {
     @Composable
@@ -64,9 +64,11 @@ class UserScreen {
                 DisplayActiveUser(user)
             }
 
-            Column(modifier = Modifier
-                .padding(16.dp)
-                .weight(1f)) {
+            Column(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .weight(1f)
+            ) {
                 DisplayUsersInDB(userViewModel)
             }
 
@@ -109,7 +111,7 @@ class UserScreen {
             textDecoration = TextDecoration.Underline
         )
 
-        val authorized = if (user.authorized) "Authorized" else "Unauthorized"
+        val authorized = if (user.authorized == true) "Authorized" else "Unauthorized"
         Text(
             modifier = Modifier.padding(top = 8.dp),
             text = "${user.name}, ${user.age}, $authorized",
@@ -144,10 +146,26 @@ class UserScreen {
                 Switch(checked = isActive, onCheckedChange = { isActive = it })
                 Text(modifier = Modifier.padding(horizontal = 16.dp), text = "Authorize User")
             }
-            Button(onClick = { userViewModel.updateUser(User(name, age, isActive)) }) {
+            Button(onClick = {
+                userViewModel.updateUser(
+                    User(
+                        name = name,
+                        age = age,
+                        authorized = isActive
+                    )
+                )
+            }) {
                 Text("Save")
             }
-            Button(onClick = { userViewModel.addUser(User(name, age, isActive)) }) {
+            Button(onClick = {
+                userViewModel.addUser(
+                    User(
+                        name = name,
+                        age = age,
+                        authorized = isActive
+                    )
+                )
+            }) {
                 Text("Add User")
             }
         }
