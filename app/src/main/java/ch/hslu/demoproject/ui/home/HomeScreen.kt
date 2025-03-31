@@ -38,8 +38,34 @@ class HomeScreen {
             Column {
                 ShowUserScreen(navController)
             }
+            Column {
+                ShowMusicPlayerScreen(navController)
+            }
             Row {
                 DetailScreenNavigation(navController)
+            }
+        }
+    }
+
+    @Composable
+    private fun ShowMusicPlayerScreen(navController: NavHostController) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = "Here you can go to the Music Player",
+                style = MaterialTheme.typography.labelLarge
+            )
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Button(onClick = { navController.navigate(Screen.MusicPlayer.name) }) {
+                Text("Music Player")
             }
         }
     }
@@ -63,16 +89,11 @@ class HomeScreen {
         ) {
             UserScreenNavigation(navController)
         }
-
     }
 
     @Composable
     private fun UserScreenNavigation(navController: NavHostController) {
-        Button(
-            onClick = {
-                navController.navigate(Screen.User.name)
-            }
-        ) {
+        Button(onClick = { navController.navigate(Screen.User.name) }) {
             Text("Users")
         }
     }

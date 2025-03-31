@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import ch.hslu.demoproject.Screen
-import ch.hslu.demoproject.business.electronics.data.Electronic
+import ch.hslu.demoproject.business.electronics.Electronic
 
 class ElectronicsScreen {
     @Composable

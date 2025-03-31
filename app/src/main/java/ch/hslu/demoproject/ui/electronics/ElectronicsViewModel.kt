@@ -2,8 +2,8 @@ package ch.hslu.demoproject.ui.electronics
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import ch.hslu.demoproject.business.electronics.Electronic
 import ch.hslu.demoproject.business.electronics.ElectronicsApiService
-import ch.hslu.demoproject.business.electronics.data.Electronic
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

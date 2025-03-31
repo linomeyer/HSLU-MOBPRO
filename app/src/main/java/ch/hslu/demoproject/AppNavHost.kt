@@ -12,6 +12,7 @@ import androidx.navigation.navArgument
 import ch.hslu.demoproject.ui.detail.DetailScreen
 import ch.hslu.demoproject.ui.electronics.ElectronicsScreen
 import ch.hslu.demoproject.ui.home.HomeScreen
+import ch.hslu.demoproject.ui.musicplayer.MusicPlayerScreen
 import ch.hslu.demoproject.ui.user.UserScreen
 
 class AppNavHost {
@@ -57,6 +58,9 @@ class AppNavHost {
             }
             composable(route = Screen.User.name) {
                 UserScreen().Show(navController)
+            }
+            composable(route = Screen.MusicPlayer.name) {
+                MusicPlayerScreen().Show(navController)
             }
         }
     }
