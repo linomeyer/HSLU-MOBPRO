@@ -1,12 +1,8 @@
 package ch.hslu.demoproject.ui.musicplayer
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,15 +25,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import androidx.core.app.NotificationCompat
 import androidx.navigation.NavHostController
 import ch.hslu.demoproject.Screen
 import ch.hslu.demoproject.business.musicplayer.MusicPlayerService
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
-
-private const val NOTIFICATION_CHANNEL = "ch.hslu.mobpro.demo.channel"
 
 class MusicPlayerScreen {
     @Composable
@@ -80,13 +73,11 @@ class MusicPlayerScreen {
     @OptIn(ExperimentalPermissionsApi::class)
     @Composable
     private fun MusicPlayer() {
-        val notificationManager = LocalContext.current.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        createChannel(notificationManager)
-
         val context = LocalContext.current
+        val intent = Intent(context, MusicPlayerService::class.java)
+
         var musicPlayerConnection: MusicPlayerConnection? by remember { mutableStateOf(null) }
         val songHistory: MutableList<String> = remember { mutableStateListOf() }
-        var currentSong: String? = ""
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             val notificationPermissionState = rememberPermissionState(
@@ -101,10 +92,7 @@ class MusicPlayerScreen {
                         if (!notificationPermissionState.status.isGranted) {
                             notificationPermissionState.launchPermissionRequest()
                         } else {
-                            val intent = Intent(context, MusicPlayerService::class.java)
-
                             context.startService(intent)
-
                             musicPlayerConnection = MusicPlayerConnection().also {
                                 context.bindService(
                                     intent,
@@ -112,7 +100,6 @@ class MusicPlayerScreen {
                                     Context.BIND_AUTO_CREATE
                                 )
                             }
-                            createNotification(context, notificationManager, currentSong)
                         }
                     },
                 ) {
@@ -122,9 +109,7 @@ class MusicPlayerScreen {
                 Button(
                     onClick = {
                         context.unbindService(musicPlayerConnection as ServiceConnection)
-                        val intent = Intent(context, MusicPlayerService::class.java)
                         context.stopService(intent)
-                        notificationManager.cancel(1)
                     },
                 ) {
                     Text("Stop")
@@ -132,8 +117,7 @@ class MusicPlayerScreen {
 
                 Button(
                     onClick = {
-                        currentSong = musicPlayerConnection?.getMusicPlayer()?.next()
-                        createNotification(context, notificationManager, currentSong)
+                        val currentSong = musicPlayerConnection?.getMusicPlayer()?.next()
                         currentSong?.let { songHistory.add(it) }
                     }
                 ) {
@@ -141,22 +125,27 @@ class MusicPlayerScreen {
                 }
             }
 
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 12.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = "Song History",
-                    style = MaterialTheme.typography.titleSmall,
-                    textDecoration = TextDecoration.Underline
-                )
+            ShowSongHistory(songHistory)
+        }
+    }
 
-                LazyColumn() {
-                    items(songHistory.size) { index ->
-                        ShowSongHistoryEntry(index, songHistory[index])
-                    }
+    @Composable
+    private fun ShowSongHistory(songHistory: MutableList<String>) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = "Song History",
+                style = MaterialTheme.typography.titleSmall,
+                textDecoration = TextDecoration.Underline
+            )
+
+            LazyColumn {
+                items(songHistory.size) { index ->
+                    ShowSongHistoryEntry(index, songHistory[index])
                 }
             }
         }
@@ -172,39 +161,5 @@ class MusicPlayerScreen {
         ) {
             Text(text = "${index + 1} - $song", style = MaterialTheme.typography.bodySmall)
         }
-    }
-
-    private fun createNotification(
-        context: Context,
-        notificationManager: NotificationManager,
-        currentSong: String?
-    ) {
-        val notification = NotificationCompat
-            .Builder(context, NOTIFICATION_CHANNEL)
-            .setContentTitle("HSLU Music Player")
-            .setContentText(currentSong)
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setOngoing(true)
-            .setSmallIcon(android.R.drawable.ic_media_play)
-            .setLargeIcon(
-                BitmapFactory.decodeResource(
-                    context.resources,
-                    android.R.drawable.ic_media_play
-                )
-            )
-            .setWhen(System.currentTimeMillis())
-            .setCategory(Notification.CATEGORY_SERVICE)
-            .build()
-
-        notificationManager.notify(1, notification)
-    }
-
-    private fun createChannel(notificationManager: NotificationManager) {
-        val channel = NotificationChannel(
-            NOTIFICATION_CHANNEL,
-            "Music notifications",
-            NotificationManager.IMPORTANCE_DEFAULT
-        )
-        notificationManager.createNotificationChannel(channel)
     }
 }
