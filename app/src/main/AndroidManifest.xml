@@ -2,10 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <uses-permission android:name="android.permission.READ_SMS" />
 
     <application
         android:allowBackup="true"
@@ -28,11 +33,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+
         <service
             android:name="ch.hslu.demoproject.business.musicplayer.MusicPlayerService"
             android:description="@string/musicplayer_desc"
             android:exported="false"
             android:foregroundServiceType="mediaPlayback" />
+
+        <receiver
+            android:exported="false"
+            android:name="ch.hslu.demoproject.business.MyManifestBroadcastReceiver">
+            <intent-filter>
+                <action android:name="ch.hslu.demoproject.MY_ACTION"></action>
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

@@ -42,8 +42,22 @@ class HomeScreen {
                 ShowMusicPlayerScreen(navController)
             }
             Row {
+                ShowSms(navController)
+            }
+            Row {
                 DetailScreenNavigation(navController)
             }
+        }
+    }
+
+    @Composable
+    private fun ShowSms(navController: NavHostController) {
+        Button(
+            onClick = {
+                navController.navigate(Screen.Sms.name)
+            }
+        ) {
+            Text("Sms")
         }
     }
 
@@ -140,5 +154,4 @@ class HomeScreen {
             Text("Electronics")
         }
     }
-
 }

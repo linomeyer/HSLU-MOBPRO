@@ -1,5 +1,5 @@
 package ch.hslu.demoproject
 
 enum class Screen {
-    Home, Detail, Electronics, User, MusicPlayer
+    Home, Detail, Electronics, User, MusicPlayer, Sms;
 }
